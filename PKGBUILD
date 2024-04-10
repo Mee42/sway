@@ -66,7 +66,6 @@ prepare() {
 }
 
 build() {
-  export PKG_CONFIG_PATH='/usr/lib/wlroots0.16/pkgconfig'
   mkdir -p build
   arch-meson build "$pkgname-$pkgver" -D sd-bus-provider=libsystemd -D werror=false -D b_ndebug=true
   ninja -C build
