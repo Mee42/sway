@@ -18,13 +18,7 @@ path = [
     "*.desktop",
     "*.hook",
     "*.conf",
+    "remove_git_version_format.patch",
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
-
-[[annotations]]
-path = [
-    "remove_git_version_format.patch",
-]
-SPDX-FileCopyrightText = "sway contributors"
-SPDX-License-Identifier = "MIT"
