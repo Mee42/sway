@@ -33,6 +33,7 @@ pkgbase = sway
 	optdepends = i3status: Status line generation
 	optdepends = libpulse: Volume adjustment tool (pactl) used in the default configuration
 	optdepends = mako: Lightweight notification daemon
+	optdepends = playerctl: Media player controller used in the default configuration
 	optdepends = polkit: System privilege control. Required if not using seatd service
 	optdepends = swaybg: Wallpaper tool for sway
 	optdepends = sway-contrib: Collection of user-contributed scripts for sway

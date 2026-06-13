@@ -41,6 +41,7 @@ optdepends=(
   'i3status: Status line generation'
   'libpulse: Volume adjustment tool (pactl) used in the default configuration'
   'mako: Lightweight notification daemon'
+  'playerctl: Media player controller used in the default configuration'
   'polkit: System privilege control. Required if not using seatd service'
   'swaybg: Wallpaper tool for sway'
   'sway-contrib: Collection of user-contributed scripts for sway'
