@@ -1,0 +1,34 @@
+diff --git a/sway/input/seatop_default.c b/sway/input/seatop_default.c
+index df8232afc..ae81fc818 100644
+--- a/sway/input/seatop_default.c
++++ b/sway/input/seatop_default.c
+@@ -26,6 +26,10 @@ struct seatop_default_event {
+ 	uint32_t pressed_buttons[SWAY_CURSOR_PRESSED_BUTTONS_CAP];
+ 	size_t pressed_button_count;
+ 	struct gesture_tracker gestures;
++	// Accumulated discrete scroll on a tabbed/stacked title bar, so that
++	// high-resolution wheels (which send fractions of a step) still switch tabs
++	double titlebar_scroll_accum;
++	enum wl_pointer_axis titlebar_scroll_orientation;
+ };
+ 
+ /*-----------------------------------------\
+@@ -759,8 +763,16 @@ static void handle_pointer_axis(struct sway_seat *seat,
+ 			struct sway_node *active =
+ 				seat_get_active_tiling_child(seat, tabcontainer);
+ 			list_t *siblings = container_get_siblings(cont);
+-			int desired = list_find(siblings, active->sway_container) +
+-				roundf(scroll_factor * event->delta_discrete / WLR_POINTER_AXIS_DISCRETE_STEP);
++			double step = scroll_factor * event->delta_discrete;
++			if (e->titlebar_scroll_orientation != event->orientation ||
++					(step < 0) != (e->titlebar_scroll_accum < 0)) {
++				e->titlebar_scroll_accum = 0;
++			}
++			e->titlebar_scroll_orientation = event->orientation;
++			e->titlebar_scroll_accum += step;
++			int steps = e->titlebar_scroll_accum / WLR_POINTER_AXIS_DISCRETE_STEP;
++			e->titlebar_scroll_accum -= steps * WLR_POINTER_AXIS_DISCRETE_STEP;
++			int desired = list_find(siblings, active->sway_container) + steps;
+ 			if (desired < 0) {
+ 				desired = 0;
+ 			} else if (desired >= siblings->length) {

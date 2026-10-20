@@ -1,0 +1,5 @@
+# makepkg output: re-created by `makepkg` from the PKGBUILD
+/sway/
+/src/
+/pkg/
+*.pkg.tar.*
